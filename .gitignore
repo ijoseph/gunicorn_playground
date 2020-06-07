@@ -1,0 +1,4 @@
+socket/
+*.whl
+App/.*
+test_env/

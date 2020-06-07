@@ -1,0 +1,14 @@
+FROM nginx
+
+RUN apt-get update
+
+RUN apt-get install -y python3-pip python-dev python3-venv emacs nginx
+
+COPY App/ /app
+COPY app.nginx /etc/nginx/sites-available/app
+RUN mkdir /etc/nginx/sites-enabled/ 
+RUN ln -sf /etc/nginx/sites-available/app /etc/nginx/sites-enabled/ 
+
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY proxy_params /etc/nginx/proxy_params
+WORKDIR /app

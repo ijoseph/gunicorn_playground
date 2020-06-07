@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  gunicorn_app:
+    volumes:
+      - /Users/ijoseph/Code/GUniocrn/socket:/app/socket
+      - /Users/ijoseph/Code/Repo/Bash_Config:/root
+    image: gunicorn_app:0.01
+    build:
+      context: .
+      dockerfile: Dockerfile_gunicorn
+  nginx:
+    volumes:
+      - /Users/ijoseph/Code/GUniocrn/socket:/app/socket
+      - /Users/ijoseph/Code/Repo/Bash_Config:/root
+    ports:
+      - 80:80
+    image: nginx_custom:0.03
+    build:
+      context: .
+      dockerfile: Dockerfile_nginx
+    depends_on:
+      - gunicorn_app
